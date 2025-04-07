@@ -6,19 +6,19 @@ import plotly.express as px
 @st.cache_data
 def load_data():
     data = pd.read_csv("sales_data.csv")
-    data['Date'] = pd.to_datetime(data['Date'])
+    data['Year'] = pd.to_datetime(data['Year'])
     return data
 
 df = load_data()
 
 st.sidebar.header("Filter Options")
-regions = st.sidebar.multiselect("Select Region", options=df['Region'].unique(), default=df['Region'].unique())
-date_range = st.sidebar.date_input("Select Date Range", [df['Date'].min(), df['Date'].max()])
+countries = st.sidebar.multiselect("Select Country", options=df['Country'].unique(), default=df['Country'].unique())
+year_range = st.sidebar.date_input("Select Year Range", [df['Year'].min(), df['Year'].max()])
 
 filtered_df = df[
-    (df['Region'].isin(regions)) &
-    (df['Date'] >= pd.to_datetime(date_range[0])) &
-    (df['Date'] <= pd.to_datetime(date_range[1]))
+    (df['Country'].isin(countries)) &
+    (df['Year'] >= pd.to_datetime(year_range[0])) &
+    (df['Year'] <= pd.to_datetime(year_range[1]))
 ]
 
 total_sales = filtered_df['Total'].sum()
