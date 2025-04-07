@@ -21,9 +21,9 @@ filtered_df = df[
     (df['Year'] <= pd.to_datetime(year_range[1]))
 ]
 
-total_sales = filtered_df['Total'].sum()
+total_value = filtered_df['Value'].sum()
 total_customers = filtered_df.shape[0]
-avg_sales = filtered_df['Total'].mean()
+avg_value = filtered_df['Total'].mean()
 
 st.markdown("""
     <div style="background-color:#1f77b4;padding:20px;border-radius:10px">
@@ -35,9 +35,9 @@ st.markdown("### Overview")
 st.write(f"{len(filtered_df)} records match your filters")
 
 col1, col2, col3 = st.columns(3)
-col1.metric("Total Sales", f"${total_sales:,.2f}")
+col1.metric("Total Value", f"${total_value:,.2f}")
 col2.metric("Transactions", f"{total_customers:,}")
-col3.metric("Avg Sale", f"${avg_sales:,.2f}")
+col3.metric("Avg Value", f"${avg_value:,.2f}")
 
 tabs = st.tabs(["Sales Trend", "Best Sellers", "Data Table"])
 
